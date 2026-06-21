@@ -4,10 +4,10 @@ import { UsersService } from './users.service';
 
 describe('UsersController', () => {
   let controller: UsersController;
-  let service: UsersService;
 
   const mockUsersService = {
     register: jest.fn(),
+    login: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -22,7 +22,6 @@ describe('UsersController', () => {
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
-    service = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
@@ -41,7 +40,27 @@ describe('UsersController', () => {
 
       const result = await controller.register(registerDto);
 
-      expect(service.register).toHaveBeenCalledWith(registerDto);
+      expect(mockUsersService.register).toHaveBeenCalledWith(registerDto);
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('login', () => {
+    it('should call service.login and return the token result', async () => {
+      const loginDto = {
+        email: 'eko@example.com',
+        password: 'password123',
+      };
+      const expectedResult = {
+        data: {
+          token: 'mocked_jwt_token',
+        },
+      };
+      mockUsersService.login.mockResolvedValue(expectedResult);
+
+      const result = await controller.login(loginDto);
+
+      expect(mockUsersService.login).toHaveBeenCalledWith(loginDto);
       expect(result).toEqual(expectedResult);
     });
   });
