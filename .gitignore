@@ -1,0 +1,17 @@
+# compiled output
+/dist
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.cproject
+.settings
+.vscode
+
+# Private env file
+.env
+
+# OS files
+.DS_Store
