@@ -168,4 +168,11 @@ describe('UsersService', () => {
       );
     });
   });
+
+  describe('logout', () => {
+    it('should return Ok', async () => {
+      const result = await service.logout();
+      expect(result).toEqual({ data: 'Ok' });
+    });
+  });
 });

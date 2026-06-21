@@ -67,5 +67,26 @@ describe('Users (e2e)', () => {
       })
       .expect(400)
       .expect({ error: 'Email atau password salah' });
+
+    // 5. Logout successfully with valid token
+    const token = body.data?.token;
+    await request(app.getHttpServer())
+      .delete('/api/users/logout')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200)
+      .expect({ data: 'Ok' });
+
+    // 6. Logout fails without token
+    await request(app.getHttpServer())
+      .delete('/api/users/logout')
+      .expect(401)
+      .expect({ error: 'Unauthorized' });
+
+    // 7. Logout fails with invalid token
+    await request(app.getHttpServer())
+      .delete('/api/users/logout')
+      .set('Authorization', 'Bearer invalid_token_string')
+      .expect(401)
+      .expect({ error: 'Unauthorized' });
   });
 });

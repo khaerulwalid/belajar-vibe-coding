@@ -90,4 +90,10 @@ export class UsersService {
       },
     };
   }
+
+  async logout(): Promise<{ data: string }> {
+    // In a stateless JWT implementation, we don't need to invalidate anything on the server.
+    // We just return a success response, and the client should delete the token.
+    return { data: 'Ok' };
+  }
 }
