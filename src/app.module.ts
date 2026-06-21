@@ -20,7 +20,8 @@ import { UsersModule } from './users/users.module';
         password: configService.get<string>('DB_PASSWORD', 'postgres'),
         database: configService.get<string>('DB_DATABASE', 'postgres'),
         autoLoadEntities: true,
-        synchronize: configService.get<string>('DB_SYNCHRONIZE', 'true') === 'true',
+        synchronize:
+          configService.get<string>('DB_SYNCHRONIZE', 'true') === 'true',
       }),
       inject: [ConfigService],
     }),
@@ -30,5 +31,3 @@ import { UsersModule } from './users/users.module';
   providers: [AppService],
 })
 export class AppModule {}
-
-

@@ -1,6 +1,7 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('api/users')
 export class UsersController {
@@ -9,5 +10,11 @@ export class UsersController {
   @Post()
   async register(@Body() dto: RegisterUserDto): Promise<{ data: string }> {
     return this.usersService.register(dto);
+  }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async login(@Body() dto: LoginUserDto): Promise<{ data: { token: string } }> {
+    return this.usersService.login(dto);
   }
 }
